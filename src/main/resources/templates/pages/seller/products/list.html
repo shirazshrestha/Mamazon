@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layout/main_layout}" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" xmlns:layout="http://www.w3.org/1999/xhtml"+
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Products List</title>
+    <link rel="stylesheet" th:href="@{/css/auth.css}">
+</head>
+<body>
+<div layout:fragment="content" class="container mt-4">
+
+    <!--  this alert will be shown only if redirected from add product page and the product was successfully created.  -->
+    <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${created}">
+        <strong>Success!</strong> A product was created successfully.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <!--  this alert will be shown only if redirected from add product page and the product was successfully created.  -->
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${deleted}">
+        <strong>Success!</strong> <span th:text="${deleted}"></span>.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <table class="table">
+        <thead>
+            <th>#ID</th>
+            <th>title</th>
+            <th>Price</th>
+            <th>Active</th>
+            <th>Actions</th>
+        </thead>
+        <tbody>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.id}"></td>
+                <td th:text="${product.title}"></td>
+                <td th:text="${product.price}"></td>
+                <td th:text="${product.active}"></td>
+                <td>
+                    <a th:title="delete" class="btn btn-danger" th:href="@{/seller/products/delete/{id}(id=${product.id})}">
+                        <i class="material-icons">
+                            delete_forever
+                        </i>
+                    </a>
+                    <a  th:title="edit" class="btn btn-primary" th:href="@{/seller/products/edit/{id}(id=${product.id})}">
+                        <i class="material-icons">
+                            border_color
+                        </i>
+                    </a>
+                    <a  th:title="reviews" class="btn btn-warning" th:href="@{/seller/product/{id}/reviews(id=${product.id})}">
+                        <i class="material-icons">
+                            rate_review
+                        </i>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>

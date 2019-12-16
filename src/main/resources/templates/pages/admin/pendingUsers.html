@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layout/main_layout}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Pending Users</title>
+    <link rel="stylesheet" th:href="@{/css/auth.css}">
+</head>
+<body>
+<div layout:fragment="content" class="container mt-4">
+
+    <!--  this alert will be shown only if redirected from add product page and the product was successfully created.  -->
+    <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${successMessage}">
+        <strong>Success!</strong> <span th:utext="${successMessage}"></span>.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <h1>Hello Admin <span sec:authentication="name"></span></h1>
+    <h2>Pending users</h2>
+
+    <table class="table">
+        <thead>
+        <th>Username</th>
+        <th>Accept</th>
+        <th>Reject</th>
+        </thead>
+        <tbody>
+        <tr th:each="seller:${pendingSellers}">
+            <td th:text="${seller.username}"></td>
+            <td>
+                <form method="post" th:action="@{/admin/accept/{id}(id=${seller.id})}">
+                    <input type="submit" value="Accept" class="btn btn-primary">
+                </form>
+            </td>
+            <td>
+                <form method="post" th:action="@{/admin/reject/{id}(id=${seller.id})}">
+                    <input type="submit" value="Reject" class="btn btn-danger">
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>

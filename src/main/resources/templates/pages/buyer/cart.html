@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layout/buyer_layout}" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" xmlns:layout="http://www.w3.org/1999/xhtml"+
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Buyer Home</title>
+</head>
+<body>
+<div layout:fragment="content" class="container mt-4">
+
+
+<table id="cart" class="table table-hover table-condensed">
+    <thead>
+    <tr>
+        <th style="width:50%">Product</th>
+        <th style="width:10%">Price</th>
+        <th style="width:8%">Quantity</th>
+        <th style="width:10%"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="line: ${cart.lines}">
+        <td data-th="Product">
+            <div class="row">
+                <div class="col-sm-2 hidden-xs"><img th:src="@{/{id}.png(id=${line.product.id})}" width="100px" height="100px" alt="..." class="img-responsive"/></div>
+                <div class="col-sm-8 offset-sm-1">
+                    <h4 class="nomargin" th:text="${line.product.title}"></h4>
+                    <p th:text="${line.product.description}"></p>
+                </div>
+            </div>
+        </td>
+        <td data-th="Price" th:text="${line.product.price}"></td>
+        <td data-th="Quantity">
+            <input type="number" min="1" class="form-control text-center qtyChange" th:value="${line.qty}"  th:title="${line.id}">
+        </td>
+        <td class="actions" data-th="">
+            <form th:action="@{/buyer/cart/delete/}" method="post">
+                <input type="hidden" th:value="${line.id}" name="line_id">
+                <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
+            </form>
+        </td>-
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+        <td><a th:href="@{/products/list}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
+        <td colspan="1" class="hidden-xs"></td>
+        <td class="hidden-xs text-center"><strong th:text="'$'+${cart.getTotal()}"></strong></td>
+        <td><a th:href="@{/cart/checkout}" th:class="${cart.getTotal()}==0.0?'btn inactiveLink btn-block btn-light':'btn btn-success btn-block'" >Checkout <i class="fa fa-angle-right"></i></a></td>
+    </tr>
+    </tfoot>
+</table>
+
+</div>
+
+<div layout:fragment="additional_js">
+    <script th:src="@{/js/cart.js}"></script>
+</div>
+</body>
+</html>

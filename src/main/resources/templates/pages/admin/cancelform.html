@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layout/main_layout}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" xmlns:layout="http://www.w3.org/1999/xhtml"
+      +
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmation</title>
+    <link rel="stylesheet" th:href="@{/css/auth.css}">
+</head>
+<body>
+<div layout:fragment="content" class="container mt-4">
+
+    <div class="form-container h-100">
+        <div class="row h-100 justify-content-center align-items-cente">
+
+            <form th:action="@{/admin/orders/cancel}" th:object="${order}" method="post" class="col-6">
+                <h3>Cancel Order</h3>
+                <input type="hidden" th:field="*{id}">
+                <h1>Are you sure?</h1>
+                <div class="form-group">
+                    <input type="submit" value="Yes" class="btn btn-block btn-danger">
+                    <a th:href="@{/admin/orders}" class="btn btn-block btn-primary mt-3">Go Back to safty!</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

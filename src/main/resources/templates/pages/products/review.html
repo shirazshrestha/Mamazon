@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layout/main_layout}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" xmlns:layout="http://www.w3.org/1999/xhtml"
+      +
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Product details</title>
+    <div layout:fragment="additional_css">
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </div>
+</head>
+<body>
+<div layout:fragment="content" class="container mt-4">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6  border text-center">
+                <div class="card-body">
+                    <h1 class="text-danger" th:text="${average}">4.5</h1>
+                    <div class="sub-row text-warning">
+                        <div class="col-md-12">
+                            <i th:class="${average>0}?'fa fa-star txt-warning':'fa fa-star-o txt-warning'"></i>
+                            <i th:class="${average>1}?'fa fa-star txt-warning':'fa fa-star-o txt-warning'"></i>
+                            <i th:class="${average>2}?'fa fa-star txt-warning':'fa fa-star-o txt-warning'"></i>
+                            <i th:class="${average>3}?'fa fa-star txt-warning':'fa fa-star-o txt-warning'"></i>
+                            <i th:class="${average>4}?'fa fa-star txt-warning':'fa fa-star-o txt-warning'"></i>
+                        </div>
+                    </div>
+                    <p th:text="${reviews.size()}+' rating'">0 rating</p>
+                </div>
+            </div>
+            <div class="col-md-6 border">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h6>5 Stars</h6>
+                        </div>
+                        <div class="col-md-7 pt-1">
+                            <div class="progress">
+                                <div th:class="'progress-bar bg-success w-'+${percentages.get(4)}"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <h6 th:text="${ratings.get(4)}">(1)</h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h6>4 Stars</h6>
+                        </div>
+                        <div class="col-md-7 pt-1">
+                            <div class="progress">
+                                <div th:class="'progress-bar bg-primary w-'+${percentages.get(3)}"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <h6 th:text="${ratings.get(3)}">(1)</h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h6>3 Stars</h6>
+                        </div>
+                        <div class="col-md-7 pt-1">
+                            <div class="progress">
+                                <div th:class="'progress-bar bg-info w-'+${percentages.get(2)}"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <h6 th:text="${ratings.get(2)}">(1)</h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h6>2 Stars</h6>
+                        </div>
+                        <div class="col-md-7 pt-1">
+                            <div class="progress">
+                                <div th:class="'progress-bar bg-warning w-'+${percentages.get(1)}"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <h6 th:text="${ratings.get(1)}">(1)</h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h6>1 Star</h6>
+                        </div>
+                        <div class="col-md-7 pt-1">
+                            <div class="progress">
+                                <div th:class="'progress-bar bg-danger w-'+${percentages.get(0)}"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <h6 th:text="${ratings.get(0)}">(1)</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5">
+                <div class="one-review col-12" th:each="review:${reviews}">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p th:text="${review.buyer.user.username}">Rahul Roy</p>
+                        </div>
+                        <div class="col-md-9 text-success">
+                            <small th:text="${review.localDateTime}">30th Jan</small>
+                        </div>
+                    </div>
+                    <div class="row text-success">
+                        <div class="col-md-12">
+                            <i th:class="${review.rate>0}?'fa fa-star txt-success':'fa fa-star-o txt-success'"></i>
+                            <i th:class="${review.rate>1}?'fa fa-star txt-success':'fa fa-star-o txt-success'"></i>
+                            <i th:class="${review.rate>2}?'fa fa-star txt-success':'fa fa-star-o txt-success'"></i>
+                            <i th:class="${review.rate>3}?'fa fa-star txt-success':'fa fa-star-o txt-success'"></i>
+                            <i th:class="${review.rate>4}?'fa fa-star txt-success':'fa fa-star-o txt-success'"></i>
+                        </div>
+                    </div>
+                    <div class="row pt-2">
+                        <div class="col-md-12">
+                            <h3 th:text="${review.title}">Worse web hosting company</h3>
+                            <p th:text="${review.comment}">I think I started out at under $3 per month 5 or 6 years ago.
+                                The price has steadily
+                                increased and my latest renewal offer was $16.99 per month. Additionally last year my
+                                wife started having spam problems and it seems like someone gained access to all her
+                                email correspondence. The only place that we could pin it down to was the justhost SMTP
+                                server. Support was very evasive when I tried to explain what I thought happened.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+</body>
+</html>

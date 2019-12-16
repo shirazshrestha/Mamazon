@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layout/buyer_layout}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" xmlns:layout="http://www.w3.org/1999/xhtml"
+      +
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Products List</title>
+
+</head>
+<body>
+<div layout:fragment="content" class="container mt-4">
+
+    <div class="col-12 col-md-6 col-lg-4 list-group" th:each="notification: ${notifications}">
+        <a th:href="${notification.link}" style="width:700px;" class="list-group-item list-group-item-action" >
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1" th:text="${notification.localDateTime}"></h5>
+                <p class="mb-1" th:text="${notification.message}"></p>
+            </div>
+        </a>
+    </div>
+
+</div>
+</body>
+</html>

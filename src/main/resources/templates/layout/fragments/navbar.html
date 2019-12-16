@@ -1,0 +1,115 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" th:fragment="navbar"
+     xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+     xmlns:th="">
+    <a class="navbar-brand" href="#" th:href="@{/}">Mamazon</a>
+    <button aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
+            data-target="#navbarNav" data-toggle="collapse" type="button">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="#" th:href="@{/}">Home</a>
+            </li>
+
+            <!-- Admin -->
+            <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
+                <a class="nav-link" href="#" th:href="@{/admin/pendingUsers}">Pending Users</a>
+            </li>
+            <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
+                <a class="nav-link" href="#" th:href="@{/admin/adChange}">Change Ad</a>
+            </li>
+            <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
+                <a class="nav-link" href="#" th:href="@{/admin/orders}">Orders</a>
+            </li>
+            <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
+                <a class="nav-link" href="#" th:href="@{/admin/orders/pending}">Pending Orders</a>
+            </li>
+            <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
+                <a class="nav-link" href="#" th:href="@{/admin/orders/shipped}">Shipped Orders</a>
+            </li>
+            <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
+                <a class="nav-link" href="#" th:href="@{/admin/reviews}">Pending Reviews</a>
+            </li>
+
+            <!-- Buyer --->
+            <li class="nav-item" sec:authorize="hasAuthority('BUYER')">
+                <a class="nav-link" href="#" th:href="@{/products/list}">Products</a>
+            </li>
+
+            <li class="nav-item" sec:authorize="hasAuthority('BUYER')">
+                <a th:href="@{/buyer/myorders}" href="#" class="nav-link">My Orders</a>
+            </li>
+
+            <li class="nav-item" sec:authorize="hasAuthority('BUYER')">
+                <a th:href="@{/buyer/pendingorders}" href="#" class="nav-link">Pending Orders</a>
+            </li>
+
+            <li class="nav-item" sec:authorize="hasAuthority('BUYER')">
+                <a th:href="@{/buyer/reviews}" href="#" class="nav-link">Review Products</a>
+            </li>
+
+            <!-- Seller -->
+            <li class="nav-item" sec:authorize="hasAuthority('SELLER')">
+                <a class="nav-link" href="#" th:href="@{/seller/myproducts}">My products</a>
+            </li>
+            <li class="nav-item" sec:authorize="hasAuthority('SELLER')">
+                <a class="nav-link" href="#" th:href="@{/seller/products/add}">Add product</a>
+            </li>
+
+
+
+        </ul>
+
+        <ul class="navbar-nav ml-auto">
+            <!--   Buyer   -->
+            <li class="nav-item" sec:authorize="hasAuthority('BUYER')">
+                <a href="#" th:href="@{/buyer/notifications}">
+                    <button class="btn btn-primary" type="button">
+                        Notifications <span class="badge badge-light" th:text="${notification_number_buyer}"></span>
+                    </button>
+                </a>
+            </li>
+            <li class="nav-item ml-3 mr-3" sec:authorize="hasAuthority('BUYER')">
+                <button class="btn btn-warning" type="button">
+                    <span class="badge badge-light mr-2" th:text="${points}">0</span>
+                    <span>Points</span>
+                </button>
+            </li>
+            <li class="nav-item  mr-2" sec:authorize="hasAuthority('BUYER')">
+                <a class="btn btn-success" th:href="@{/buyer/cart}" th:title="Cart">
+                    <i class="material-icons">
+                        shopping_cart
+                    </i>
+                    <span class="badge badge-light" th:text="${line_number}"></span>
+                </a>
+            </li>
+
+            <!-- Admin -->
+            <li class="nav-item mr-2" sec:authorize="hasAuthority('ADMIN')">
+                <a href="#" th:href="@{/admin/notifications}">
+                    <button class="btn btn-primary" type="button">
+                        Notifications <span class="badge badge-light" th:text="${notification_number_admin}"></span>
+                    </button>
+                </a>
+            </li>
+
+            <!-- Seller -->
+            <li class="nav-item mr-2" sec:authorize="hasAuthority('SELLER')">
+                <a href="#" th:href="@{/seller/notifications}">
+                    <button class="btn btn-primary" type="button">
+                        Notifications <span class="badge badge-light" th:text="${notification_number_seller}"></span>
+                    </button>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <form class="form-inline my-2 my-lg-0" sec:authorize="isAuthenticated()" th:action="@{/logout}"
+                      th:method="post">
+                    <span class="mr-4 text-light" sec:authentication="name"></span>
+                    <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Logout</button>
+                </form>
+            </li>
+        </ul>
+    </div>
+</nav>

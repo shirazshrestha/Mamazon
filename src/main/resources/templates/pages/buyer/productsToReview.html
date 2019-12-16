@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layout/buyer_layout}" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" xmlns:layout="http://www.w3.org/1999/xhtml"+
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Products To Review</title>
+    <link rel="stylesheet" th:href="@{/css/auth.css}">
+</head>
+<body>
+<div layout:fragment="content" class="container mt-4">
+
+    <!--  this alert will be shown only if redirected from add product page and the product was successfully created.  -->
+
+    <table class="table">
+        <thead>
+            <th>#ID</th>
+            <th>title</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </thead>
+        <tbody>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.id}"></td>
+                <td th:text="${product.title}"></td>
+                <td th:text="${product.price}"></td>
+                <td>
+                    <a  th:title="Review" class="btn btn-primary" th:href="@{/buyer/review/{id}(id=${product.id})}">
+                        <i class="material-icons">
+                            rate_review
+                        </i>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layout/main_layout}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" xmlns:layout="http://www.w3.org/1999/xhtml"
+      +
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add product</title>
+    <link rel="stylesheet" th:href="@{/css/auth.css}">
+</head>
+<body>
+<div layout:fragment="content" class="container mt-4">
+
+
+    <div class="form-container h-100">
+        <div class="row h-100 justify-content-center align-items-cente">
+
+            <form enctype="multipart/form-data" th:action="@{/seller/products/add}" th:object="${product}" method="post"
+                  class="col-12">
+                <h3>Add product</h3>
+                <input type="hidden" th:field="*{id}">
+                <div class="form-group">
+                    Title: <input type="text" class="form-control" th:field="*{title}">
+                    <label th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="text-danger"></label>
+                </div>
+                <div class="form-group">
+                    Description: <textarea class="form-control" th:field="*{description}"></textarea>
+                    <label th:if="${#fields.hasErrors('description')}" th:errors="*{description}"
+                           class="text-danger"></label>
+                </div>
+                <div class="form-group">
+                    Price: <input type="number" class="form-control" th:field="*{price}">
+                    <label th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="text-danger"></label>
+                </div>
+                <div class="form-group">
+                    Image: <input type="file" class="form-control" th:field="*{image}">
+                    <label th:if="${#fields.hasErrors('image')}" th:errors="*{image}" class="text-danger"></label>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Add product" class="btn-block btn-primary">
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
